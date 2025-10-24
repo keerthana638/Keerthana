@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Form Validation Website</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
+    nav { background: #333; padding: 10px; text-align: center; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; cursor: pointer; }
+    .content { display: none; padding: 20px; }
+    .active { display: block; }
+    form { max-width: 300px; margin: auto; background: white; padding: 20px; border-radius: 5px; }
+    input { width: 100%; padding: 8px; margin-top: 5px; }
+    button { width: 100%; padding: 8px; margin-top: 10px; background: #333; color: white; cursor: pointer; }
+    .error { color: red; font-size: 12px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a onclick="showPage('home')">Home</a>
+  <a onclick="showPage('about')">About</a>
+  <a onclick="showPage('login')">Login</a>
+</nav>
+
+<!-- Home Page -->
+<div id="home" class="content active">
+  <h1>Welcome to Our Website</h1>
+  <p>This project demonstrates interactive form validation using a single HTML file.</p>
+</div>
+
+<!-- About Page -->
+<div id="about" class="content">
+  <h1>About Us</h1>
+  <p>This demo includes Home, About, and Login pages with JavaScript validation.</p>
+</div>
+
+<!-- Login Page -->
+<div id="login" class="content">
+  <h1>Login Form</h1>
+  <form id="loginForm">
+    <label>Email:</label>
+    <input type="email" id="email" placeholder="Enter Email">
+    <span class="error" id="emailError"></span>
+
+    <label>Password:</label>
+    <input type="password" id="password" placeholder="Enter Password">
+    <span class="error" id="passwordError"></span>
+
+    <button type="submit">Login</button>
+  </form>
+</div>
+
+<script>
+  function showPage(pageId) {
+    document.querySelectorAll('.content').forEach(div => div.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+  }
+
+  document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let emailError = document.getElementById("emailError");
+    let passwordError = document.getElementById("passwordError");
+
+    emailError.textContent = "";
+    passwordError.textContent = "";
+
+    let valid = true;
+
+    if (email === "" || !email.includes("@")) {
+      emailError.textContent = "Please enter a valid email.";
+      valid = false;
+    }
+    if (password.length < 6) {
+      passwordError.textContent = "Password must be at least 6 characters.";
+      valid = false;
+    }
+
+    if (valid) {
+      alert("Login Successful!");
+      this.reset();
+    }
+  });
+</script>
+
+</body>
+</html>
